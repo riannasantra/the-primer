@@ -50,3 +50,25 @@ class IngestResult(BaseModel):
     skipped: int
     failed: int
     errors: list[str] = Field(default_factory=list)
+
+
+class MemoryEntry(BaseModel):
+    """A single memory entry in any tier."""
+
+    id: UUID
+    tier: str  # 'short_term', 'long_term', 'working'
+    dimension: str  # 'history', 'affinities', 'aspirations', 'regula'
+    content: dict[str, Any]
+    relevance_score: float = 1.0
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    expires_at: datetime | None = None  # None = no expiry (long-term)
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class WorkingMemoryAssembly(BaseModel):
+    """Assembled working memory for a learner — combines short-term + relevant long-term."""
+
+    learner_id: UUID
+    entries: list[MemoryEntry]
+    assembled_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    context_summary: str | None = None  # LLM-generated summary of the assembled context

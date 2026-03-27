@@ -1,7 +1,14 @@
 # Track 1 — Student Model models
-# Track 2 — AM Cycle Loop models
-from capillary_sdk.models.cycle_loop import (
+# Track 2 — Learning Actions models
+from capillary_sdk.models.learner_interaction import (
+    KnowledgeConcept,
+    KnowledgeGraph,
+    LearnerProgress,
+    TeachingContext,
+)
+from capillary_sdk.models.learning_actions import (
     AgentLoopDefinition,
+    Engagement,
     ExitCondition,
     GoalEvaluator,
     LoopEvent,
@@ -31,7 +38,9 @@ from capillary_sdk.models.student_model import (
     CohortSnapshot,
     IngestResult,
     MembershipEvent,
+    MemoryEntry,
     PreferenceSignal,
+    WorkingMemoryAssembly,
 )
 
 __all__ = [
@@ -39,10 +48,13 @@ __all__ = [
     "Cohort",
     "CohortSnapshot",
     "IngestResult",
+    "MemoryEntry",
     "MembershipEvent",
     "PreferenceSignal",
-    # Track 2
+    "WorkingMemoryAssembly",
+    # Track 2 — Learning Actions
     "AgentLoopDefinition",
+    "Engagement",
     "ExitCondition",
     "GoalEvaluator",
     "LoopEvent",
@@ -58,6 +70,11 @@ __all__ = [
     "TriggerEvent",
     "TriggerTarget",
     "WorkflowResult",
+    # Track 2 — Learner Interaction
+    "KnowledgeConcept",
+    "KnowledgeGraph",
+    "LearnerProgress",
+    "TeachingContext",
     # Track 3
     "ChannelFile",
     "ChannelMessage",

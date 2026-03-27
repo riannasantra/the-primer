@@ -1,6 +1,11 @@
 # Platform ports
-# Track 2 — AM Cycle Loop ports
-from capillary_sdk.ports.cycle_loop import (
+# Track 2 — Learning Actions ports
+from capillary_sdk.ports.learner_interaction import (
+    KnowledgeGraphPort,
+    LearnerProgressPort,
+    TeachingPort,
+)
+from capillary_sdk.ports.learning_actions import (
     LoopStatePort,
     OrchestrationStatePort,
     RegisterTriggerPort,
@@ -53,7 +58,7 @@ __all__ = [
     "ManageCohortPort",
     "QueryCohortPort",
     "SignalStorePort",
-    # Track 2
+    # Track 2 — Learning Actions
     "LoopStatePort",
     "OrchestrationStatePort",
     "RegisterTriggerPort",
@@ -61,6 +66,10 @@ __all__ = [
     "RunOrchestratorPort",
     "TriggerSchedulerPort",
     "WorkflowInvokerPort",
+    # Track 2 — Learner Interaction
+    "KnowledgeGraphPort",
+    "LearnerProgressPort",
+    "TeachingPort",
     # Track 3
     "ChannelAdapterPort",
     "ChannelSessionStorePort",
