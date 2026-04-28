@@ -16,11 +16,13 @@ primer_sdk/
 ├── ports/
 │   ├── platform.py        # Platform-provided ports (RunWorkflow, EventStream, etc.)
 │   ├── student_model.py   # Cohort-based preference engine ports
-│   ├── cycle_loop.py      # Triggers, orchestration, agent loop ports
+│   ├── learning_actions.py # Triggers, orchestration, agent loop ports
+│   ├── learner_interaction.py # Knowledge graph, progress, teaching ports
 │   └── presentation.py    # Multi-channel adapter ports
 ├── models/
-│   ├── student_model.py   # PreferenceSignal, Cohort, CohortSnapshot
-│   ├── cycle_loop.py      # TriggerDefinition, OrchestrationPlan, AgentLoopDefinition
+│   ├── student_model.py   # PreferenceSignal, Cohort, CohortSnapshot, MemoryEntry
+│   ├── learning_actions.py # TriggerDefinition, OrchestrationPlan, AgentLoopDefinition, Engagement
+│   ├── learner_interaction.py # KnowledgeConcept, KnowledgeGraph, LearnerProgress, TeachingContext
 │   └── presentation.py    # ChannelSession, ChannelMessage, HitlGateConfig
 └── reference/
     └── slack_adapter.py   # Reference ChannelAdapterPort implementation
@@ -30,7 +32,7 @@ primer_sdk/
 
 **Platform ports** (`ports/platform.py`) — ABCs representing existing platform capabilities. These are already implemented by the platform; your code invokes them.
 
-**Extension ports** (`ports/student_model.py`, `ports/cycle_loop.py`, `ports/presentation.py`) — ABCs you implement. Each defines an inbound side (usecases the system exposes) and an outbound side (adapters you provide).
+**Extension ports** (`ports/student_model.py`, `ports/learning_actions.py`, `ports/learner_interaction.py`, `ports/presentation.py`) — ABCs you implement. Each defines an inbound side (usecases the system exposes) and an outbound side (adapters you provide).
 
 ### AG-UI events
 
@@ -65,8 +67,11 @@ uv pip install git+ssh://git@bitbucket.org/allogy/primer-sdk.git
 ```bash
 uv run python -c "
 from primer_sdk.events import AGUIEvent, AGUIEventType
-from primer_sdk.ports import ChannelAdapterPort, CohortStrategyPort
-from primer_sdk.models import PreferenceSignal, TriggerDefinition, ChannelSession
+from primer_sdk.ports.presentation import ChannelAdapterPort
+from primer_sdk.ports.student_model import CohortStrategyPort
+from primer_sdk.models.student_model import PreferenceSignal
+from primer_sdk.models.learning_actions import TriggerDefinition
+from primer_sdk.models.presentation import ChannelSession
 print(f'primer_sdk loaded — {len(AGUIEventType)} event types')
 "
 ```
@@ -162,14 +167,14 @@ class KMeansStrategy(CohortStrategyPort):
         ...
 ```
 
-**Trigger scheduler** (cycle loop):
+**Trigger scheduler** (learning actions):
 
 ```python
 from collections.abc import Callable
 from typing import Any
 
-from primer_sdk.models.cycle_loop import TriggerDefinition
-from primer_sdk.ports.cycle_loop import TriggerSchedulerPort
+from primer_sdk.models.learning_actions import TriggerDefinition
+from primer_sdk.ports.learning_actions import TriggerSchedulerPort
 
 
 class CronScheduler(TriggerSchedulerPort):
@@ -228,9 +233,9 @@ Cohort-based preference aggregation. Users are grouped into evolving cohorts; pr
 | `SignalStorePort` | Outbound | Signal persistence |
 | `CohortStorePort` | Outbound | Cohort persistence |
 
-Key models: `PreferenceSignal`, `Cohort`, `CohortSnapshot`, `MembershipEvent`, `IngestResult`
+Key models: `PreferenceSignal`, `Cohort`, `CohortSnapshot`, `MembershipEvent`, `IngestResult`, `MemoryEntry`, `WorkingMemoryAssembly`
 
-### Cycle Loop
+### Learning Actions
 
 Three composable layers for continuous AI operations: triggers (when), orchestrators (what), agent loops (how long).
 
@@ -244,7 +249,19 @@ Three composable layers for continuous AI operations: triggers (when), orchestra
 | `LoopStatePort` | Outbound | Agent loop state persistence |
 | `OrchestrationStatePort` | Outbound | Orchestration state persistence |
 
-Key models: `TriggerDefinition`, `OrchestrationPlan`, `AgentLoopDefinition`, `WorkflowResult`, `LoopIteration`
+Key models: `TriggerDefinition`, `OrchestrationPlan`, `AgentLoopDefinition`, `WorkflowResult`, `LoopIteration`, `Engagement`
+
+### Learner Interaction
+
+Knowledge graphs, learner progress tracking, and teaching context assembly. Provides the pedagogical foundation for adaptive learning experiences.
+
+| Port | Direction | Purpose |
+|---|---|---|
+| `KnowledgeGraphPort` | Outbound | Query and manage Knowledge Graphs |
+| `LearnerProgressPort` | Outbound | Track learner mastery progress |
+| `TeachingPort` | Outbound | Assemble teaching context and record outcomes |
+
+Key models: `KnowledgeConcept`, `KnowledgeGraph`, `LearnerProgress`, `TeachingContext`
 
 ### Presentation Layer
 
