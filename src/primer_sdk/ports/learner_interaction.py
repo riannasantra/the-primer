@@ -111,9 +111,7 @@ class LearnerProgressPort(ABC):
         ...
 
     @abstractmethod
-    async def get_next_concept(
-        self, learner_id: UUID, graph_id: UUID
-    ) -> KnowledgeConcept | None:
+    async def get_next_concept(self, learner_id: UUID, graph_id: UUID) -> KnowledgeConcept | None:
         """Determine the next concept a learner should study.
 
         Args:

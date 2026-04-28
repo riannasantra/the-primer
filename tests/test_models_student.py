@@ -310,12 +310,8 @@ class TestMemoryEntry:
         assert entry.metadata == {"source": "quiz-engine"}
 
     def test_mutable_metadata_independent(self):
-        entry_a = MemoryEntry(
-            id=uuid4(), tier="working", dimension="history", content={}
-        )
-        entry_b = MemoryEntry(
-            id=uuid4(), tier="working", dimension="history", content={}
-        )
+        entry_a = MemoryEntry(id=uuid4(), tier="working", dimension="history", content={})
+        entry_b = MemoryEntry(id=uuid4(), tier="working", dimension="history", content={})
         entry_a.metadata["key"] = "value"
         assert entry_b.metadata == {}
 
