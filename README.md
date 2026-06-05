@@ -1,4 +1,6 @@
-# Capillary Actions SDK
+# This repository was edited from the Capillary Actions SDK.
+
+## Capillary Actions SDK
 
 Extension SDK for the Capillary Actions platform. Provides port interfaces, data models, and AG-UI event types for building adapters and services that integrate with the platform's hexagonal architecture.
 
@@ -43,12 +45,12 @@ Dependencies point **inward** — the domain depends on nothing; infrastructure 
 
 ## Extension Domains
 
-| Track | Domain | Focus | Main Extension Point |
-|-------|--------|-------|---------------------|
-| 1 | Student Model | Cohort-based preference aggregation, learner memory | `CohortStrategyPort` |
-| 2a | Learning Actions | Triggers, orchestration DAGs, agent loops | `TriggerSchedulerPort` |
-| 2b | Learner Interaction | Knowledge graphs, learner progress, teaching | `KnowledgeGraphPort`, `LearnerProgressPort`, `TeachingPort` |
-| 3 | Presentation | Multi-channel messaging, sessions, HITL gates | `ChannelAdapterPort` |
+| Track | Domain              | Focus                                               | Main Extension Point                                        |
+| ----- | ------------------- | --------------------------------------------------- | ----------------------------------------------------------- |
+| 1     | Student Model       | Cohort-based preference aggregation, learner memory | `CohortStrategyPort`                                        |
+| 2a    | Learning Actions    | Triggers, orchestration DAGs, agent loops           | `TriggerSchedulerPort`                                      |
+| 2b    | Learner Interaction | Knowledge graphs, learner progress, teaching        | `KnowledgeGraphPort`, `LearnerProgressPort`, `TeachingPort` |
+| 3     | Presentation        | Multi-channel messaging, sessions, HITL gates       | `ChannelAdapterPort`                                        |
 
 ## Getting Started
 
@@ -169,14 +171,14 @@ See `tests/test_reference_slack.py` for a full example testing the reference Sla
 
 Detailed architecture documentation, organized by layer:
 
-| Document | Covers |
-|----------|--------|
-| [Architecture Overview](docs/architecture.md) | Big picture: concentric layers, dependency rule, port taxonomy |
-| [Domain Models](docs/domain-models.md) | `models/` — entity/value object classification, the four tracks |
-| [Ports](docs/ports.md) | `ports/` — inbound/outbound catalog, extension points, method patterns |
-| [Events](docs/events.md) | `events.py` — AG-UI Shared Kernel, event taxonomy, lifecycle sequence |
-| [Reference Adapters](docs/reference-adapters.md) | `reference/` — SlackChannelAdapter dissected, building your own |
-| [Contributing](docs/contributing.md) | Dependency rule, checklists, testing patterns, code standards |
+| Document                                         | Covers                                                                 |
+| ------------------------------------------------ | ---------------------------------------------------------------------- |
+| [Architecture Overview](docs/architecture.md)    | Big picture: concentric layers, dependency rule, port taxonomy         |
+| [Domain Models](docs/domain-models.md)           | `models/` — entity/value object classification, the four tracks        |
+| [Ports](docs/ports.md)                           | `ports/` — inbound/outbound catalog, extension points, method patterns |
+| [Events](docs/events.md)                         | `events.py` — AG-UI Shared Kernel, event taxonomy, lifecycle sequence  |
+| [Reference Adapters](docs/reference-adapters.md) | `reference/` — SlackChannelAdapter dissected, building your own        |
+| [Contributing](docs/contributing.md)             | Dependency rule, checklists, testing patterns, code standards          |
 
 ## Contributing
 
